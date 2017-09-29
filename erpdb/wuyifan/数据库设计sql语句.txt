@@ -1,0 +1,114 @@
+
+//销售出库主表
+
+DROP TABLE IF EXISTS `client_master`;
+
+CREATE TABLE `client_master` (
+  `Id` int(11) NOT NULL,
+  `Fullname` varchar(20) NOT NULL,
+  `Classid` int(11) NOT NULL,
+  `Fundsattribute` int(11) NOT NULL,
+  `ClassName` varchar(20) NOT NULL,
+  `Areaid` int(11) NOT NULL,
+  `Areaname` varchar(20) NOT NULL,
+  `Currencyid` int(11) NOT NULL,
+  `currencyName` varchar(20) NOT NULL,
+  `ShortName` varchar(20) NOT NULL,
+  `Chiefname` varchar(20) NOT NULL,
+  `Linkman` varchar(20) NOT NULL,
+  `Telephone1` varchar(20) NOT NULL,
+  `Telephone2` varchar(20) NOT NULL,
+  `Mobiletel` varchar(20) NOT NULL,
+  `Personid` int(11) NOT NULL,
+  `Personname` varchar(20) NOT NULL,
+  `Email` varchar(20) NOT NULL,
+  `Priceoftax` int(11) NOT NULL,
+  `Earliesttraedate` date DEFAULT NULL,
+  `Firsttradedate` date DEFAULT NULL,
+  `Latelytradedate` date DEFAULT NULL,
+  `Latelyreturndate` date DEFAULT NULL,
+  `Rateofdiscount` int(11) DEFAULT NULL,
+  `Pricerank` varchar(20) NOT NULL,
+  `Fulldate` date NOT NULL,
+  `Accadvrecvid` int(11) NOT NULL,
+  `Accadvrecv` varchar(20) NOT NULL,
+  `Creditlevel` varchar(20) NOT NULL,
+  `Amountquota` float NOT NULL,
+  `Recvway` varchar(20) DEFAULT NULL,
+  `Distdays` int(11) DEFAULT NULL,
+  `Dayofclose` int(11) DEFAULT NULL,
+  `Staradvrecv` float NOT NULL,
+  `Startreceivable` float NOT NULL,
+  `Curadvrecv` float NOT NULL,
+  `Curreceivable` float NOT NULL,
+  `Remainquota` float NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS `sell_delivery`;
+
+CREATE TABLE `sell_delivery` (
+  `clientid` varchar(20) NOT NULL,
+  `Clientname` varchar(20) NOT NULL,
+  `address` varchar(20) NOT NULL,
+  `Billsdate` date NOT NULL,
+  `Billscjdate` date NOT NULL,
+  `Billsshdate` date DEFAULT NULL,
+  `Billsid` varchar(20) NOT NULL,
+  `Selldeliveryid` int(11) NOT NULL,
+  `Currencyid` int(11) NOT NULL,
+  `univalenttax` int(11) NOT NULL,
+  `exchange` float NOT NULL,
+  `Warehouseid` int(11) NOT NULL,
+  `foreign` int(11) NOT NULL,
+  `Departid` int(11) NOT NULL,
+  `Salesid` int(11) NOT NULL,
+  `Maker` int(11) NOT NULL,
+  `MakerName` varchar(20) NOT NULL,
+  `Permitter` int(11) NOT NULL,
+  `PermitterName` varchar(20) NOT NULL,
+  `Billon` int(11) NOT NULL,
+  PRIMARY KEY (`clientid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS `sell_detailed`;
+
+CREATE TABLE `sell_detailed` (
+  `line` int(11) NOT NULL,
+  `Shbillsid` varchar(20) NOT NULL,
+  `Billsid` varchar(20) NOT NULL,
+  `Billsdate` date NOT NULL,
+  `Prodid` int(11) NOT NULL,
+  `Sprice` float NOT NULL,
+  `Squantity` int(11) NOT NULL,
+  `Oldprice` float NOT NULL,
+  `Discount` int(11) NOT NULL,
+  `Amount` float NOT NULL,
+  `Taxrate` float NOT NULL,
+  `Taxamt` float NOT NULL,
+  `Isgift` int(11) NOT NULL,
+  PRIMARY KEY (`line`,`Billsid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
+insert into sell_delivery(Clientid,Clientname,address,Billsdate,Billscjdate,Billsshdate,Billsid,Selldeliveryid,Currencyid,univalenttax,exchange,Warehouseid,Departid,Salesid,Maker,MakerName,Permitter,PermitterName,Billon)
+values(1,"张三","株洲",now(),now(),"","20170928001",1,1,0,1.00000,1,0,1,3,1,"李四","",0),(2,"张美","株洲",now(),"","","20170928002",2,2,0,1.5,2,0,2,3,2,"美美","",0)
+
+
+
+insert into sell_detailed(line,Shbillsid,Billsid,Billsdate,Prodid,Sprice,Squantity,Oldprice,Discount,Amount,Taxrate,Taxamt,Isgift)
+values(1,"20170928001","20170928001",now(),1,1000,1,1000,100,1000,17,17,0),(2,"20170928002","20170928002",now(),2,3000,2,3000,100,6000,17,1020,0)
+
+
+
+
+
+insert into client_master(Id,Fullname,Classid,Fundsattribute,ClassName,Areaid,Areaname,Currencyid,currencyName,ShortName,Chiefname,Linkman,Telephone1,Telephone,Mobiletel,Personid,Personname,Email,Priceoftax,Rateofdiscount,Pricerank,Fulldate,Accadvrecvid,Accadvrecv,Creditlevel,Amountquota,Staradvrecv,Startreceivable,Curadvrecv,Curreceivable,Remainquota)
+values(1,"张三",1,1,"大客户",1,"株洲市",1,"RMB","zs","无奈","xxx","1397411352861","1397411352861","1397411352861",1,"达瓦","3072251520@qq.com",0,100,"a",now(),1,"预收款","A",0,0,0,0,0,0),(1,"张美",1,1,"大客户",1,"株洲市",1,"RMB","zm","大阿瓦","xxx","87687676786","6876786786786786","6876876786786",1,"达瓦大","3072251520@qq.com",0,100,"a",now(),1,"预收款","A",0,0,0,0,0,0)
